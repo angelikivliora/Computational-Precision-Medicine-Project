@@ -25,8 +25,6 @@ count_matrix <-  count_matrix |>
 # Convert Ensembl IDs to gene symbols
 rownames(count_matrix) <- count_matrix$gene
 
-#write.table(count_matrix, file='count_TCGA.tsv', quote=FALSE, sep='\t')
-
 # Step 1: Filter out normal samples
 tumor_samples <- metadata |>
   subset(tissue_type.samples == "Tumor" 
@@ -45,3 +43,5 @@ filtered_count_matrix <- count_matrix |>
 filtered_metadata <- metadata |>
   subset(sample %in% colnames(filtered_count_matrix)[-1])
 
+write.table(filtered_count_matrix, file='filtered_count_TCGA.tsv', quote=FALSE, sep='\t')
+write.table(filtered_metadata, file='filtered_metadata_TCGA.tsv', quote=FALSE, sep='\t')
